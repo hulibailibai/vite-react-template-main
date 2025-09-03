@@ -1,0 +1,81 @@
+{
+  "name": "vite-react-template",
+  "description": "A template for building a React application with Vite, Hono, and Cloudflare Workers",
+  "version": "0.0.1",
+  "cloudflare": {
+    "label": "Vite React Template",
+    "products": [
+      "Workers"
+    ],
+    "categories": [],
+    "icon_urls": [
+      "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/5ca0ca32-e897-4699-d4c1-6b680512f000/public"
+    ],
+    "preview_image_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/fc7b4b62-442b-4769-641b-ad4422d74300/public",
+    "publish": true
+  },
+  "dependencies": {
+    "@ant-design/icons": "^6.0.0",
+    "@tanstack/react-query": "^5.8.4",
+    "@types/date-fns": "^2.5.3",
+    "@types/qrcode": "^1.5.5",
+    "antd": "^5.27.1",
+    "axios": "^1.6.2",
+    "better-sqlite3": "^12.2.0",
+    "buffer": "^6.0.3",
+    "clsx": "^2.0.0",
+    "crypto-browserify": "^3.12.0",
+    "date-fns": "^4.1.0",
+    "hono": "4.8.2",
+    "lucide-react": "^0.468.0",
+    "mimetext": "^3.0.27",
+    "process": "^0.11.10",
+    "qrcode": "^1.5.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-hot-toast": "^2.5.2",
+    "react-router-dom": "^6.20.1",
+    "resend": "^4.7.0",
+    "stream-browserify": "^3.0.0",
+    "tailwind-merge": "^2.0.0",
+    "util": "^0.12.5",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.7.5",
+    "@eslint/js": "9.29.0",
+    "@types/node": "24.0.4",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
+    "@vitejs/plugin-react": "4.6.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "9.27.0",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "eslint-plugin-react-refresh": "0.4.20",
+    "globals": "16.2.0",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.35.0",
+    "vite": "^6.0.0",
+    "wrangler": "4.21.x"
+  },
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "build:admin": "tsc -b && vite build --config vite.admin.config.ts",
+    "cf-typegen": "wrangler types",
+    "check": "tsc && vite build && wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "deploy:admin": "npm run build:admin && wrangler deploy --config wrangler.admin.json",
+    "dev": "vite",
+    "dev:admin": "node scripts/start-admin.cjs dev",
+    "lint": "eslint .",
+    "preview": "npm run build && vite preview",
+    "admin:start": "node scripts/start-admin.cjs dev",
+    "admin:build": "node scripts/start-admin.cjs build",
+    "db:setup": "node scripts/setup-database.cjs",
+    "db:setup-remote": "node scripts/setup-remote-database.cjs",
+    "db:query": "node scripts/query-database.cjs"
+  },
+  "type": "module"
+}

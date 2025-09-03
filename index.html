@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+<!-- 缓存控制标签 - 生成时间: 2025-08-22T09:09:30.162Z -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="version" content="1755853770162">
+
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+    <script>
+      // 确保全局作用域可用
+      if (typeof global === 'undefined') {
+        var global = globalThis;
+      }
+      // 设置process环境变量
+      if (typeof process === 'undefined') {
+        var process = { env: {} };
+      }
+      global.process = process;
+      window.process = process;
+      
+      // Buffer构造函数polyfill
+      if (typeof Buffer === 'undefined') {
+        function BufferPolyfill(data, encoding) {
+          if (typeof data === 'string') {
+            return new TextEncoder().encode(data);
+          } else if (typeof data === 'number') {
+            return new Uint8Array(data);
+          } else if (data instanceof ArrayBuffer) {
+            return new Uint8Array(data);
+          }
+          return new Uint8Array(data || 0);
+        }
+        
+        BufferPolyfill.from = function(data, encoding) {
+          if (typeof data === 'string') {
+            return new TextEncoder().encode(data);
+          }
+          return new Uint8Array(data);
+        };
+        
+        BufferPolyfill.alloc = function(size) {
+          return new Uint8Array(size);
+        };
+        
+        BufferPolyfill.concat = function(buffers) {
+          const totalLength = buffers.reduce((sum, buf) => sum + buf.length, 0);
+          const result = new Uint8Array(totalLength);
+          let offset = 0;
+          for (const buf of buffers) {
+            result.set(buf, offset);
+            offset += buf.length;
+          }
+          return result;
+        };
+        
+        BufferPolyfill.isBuffer = function(obj) {
+           return obj instanceof Uint8Array;
+         };
+         
+         // 为Uint8Array原型添加Buffer方法
+         if (!Uint8Array.prototype.slice) {
+           Uint8Array.prototype.slice = function(start, end) {
+             return this.subarray(start, end);
+           };
+         }
+         
+         if (!Uint8Array.prototype.toString) {
+           Uint8Array.prototype.toString = function(encoding) {
+             if (encoding === 'hex') {
+               return Array.from(this).map(b => b.toString(16).padStart(2, '0')).join('');
+             }
+             return new TextDecoder().decode(this);
+           };
+         }
+         
+         window.Buffer = BufferPolyfill;
+         global.Buffer = BufferPolyfill;
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/react-app/main.tsx"></script>
+  </body>
+</html>
